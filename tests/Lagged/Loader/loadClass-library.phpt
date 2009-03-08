@@ -2,8 +2,7 @@
 Test autoload: a class in library, e.g. Zend_*
 --FILE--
 <?php
-$rootDir = dirname(dirname(__FILE__));
-require_once $rootDir . '/library/Lagged/Loader.php';
+require_once '../../../Lagged/Loader.php';
 
 $appDir = '/foobar'; // doesn't have to exist, we just check format
 
