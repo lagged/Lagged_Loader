@@ -26,6 +26,11 @@ class Lagged_Loader
     protected $controllerDir;
     protected $libraryDir;
     protected $modelsDir;
+
+    /**
+     * @var string $currentModule The module we are autoloading for.
+     */
+    protected $currentModule = '';
     
     /**
      * @var string $defaultModule The name of the default module for the paths,
@@ -35,15 +40,12 @@ class Lagged_Loader
     protected $defaultModule = '';
     
     /**
-     * @var string $currentModule The module we are autoloading for.
-     */
-    protected $currentModule = '';
-    
-    /**
      * @var bool $include Set to false for unit-testing the code.
      * @see self::getClassPath()
      */
     protected $include = true;
+
+    static $instance = null;
     
     /**
      * Lagged_Loader::__construct()
@@ -52,6 +54,7 @@ class Lagged_Loader
      * @param string $module The current module, when 'empty', default is assumed.
      *
      * @return Lagged_Loader
+     * @uses   self::setDefaultPaths()
      *
      * <code>
      * function __autoload($className)
@@ -62,11 +65,7 @@ class Lagged_Loader
      */
     public function __construct($appDir)
     {
-        $this->appDir = $appDir;
-        
-        $this->controllerDir = $this->appDir . '/modules/__MODULE__/app/controllers';
-        $this->modelsDir     = $this->appDir . '/modules/__MODULE__/app/models';
-        $this->libraryDir    = $this->appDir . '/library';
+        $this->setDefaultPaths($appDir);
     }
     
     /**
@@ -152,6 +151,20 @@ class Lagged_Loader
     }
 
     /**
+     * Get a singleton.
+     *
+     */
+    static function load($className, $dirs = null)
+    {
+        if (self::$instance === null) {
+            $cls = self::$instance = new Lagged_Loader(LAGGED_APPLICATION_DIR);
+        } else {
+            $cls = self::$instance;
+        }
+        $cls->loadClass($className, $dirs);
+    }
+
+    /**
      * Load a class. :-)
      *
      * @param string $className The classname from __autoload(), e.g. Model_FooBar,
@@ -160,7 +173,7 @@ class Lagged_Loader
      *
      * @return mixed
      */
-    public static function loadClass($className, $dirs = null)
+    public function loadClass($className, $dirs = null)
     {
         /**
          * @desc Auto-detect the current module which we are autoloading "from".
@@ -261,9 +274,33 @@ class Lagged_Loader
         return $path;
     }
 
+    /**
+     * Reset class for unit testing.
+     *
+     * @return void
+     * @uses   self::$currentModule
+     */
     public function reset()
     {
         $this->currentModule = null;
+    }
+
+    /**
+     * Set the default paths.
+     *
+     * @param string $appDir Application root.
+     *
+     * @return void
+     * @see    self::__construct()
+     * @see    self::loadClass()
+     */
+    protected function setDefaultPaths($appDir)
+    {
+        $this->appDir = $appDir;
+
+        $this->controllerDir = $this->appDir . '/modules/__MODULE__/app/controllers';
+        $this->modelsDir     = $this->appDir . '/modules/__MODULE__/app/models';
+        $this->libraryDir    = $this->appDir . '/library';
     }
 }
 ?>
