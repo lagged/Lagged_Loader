@@ -1,11 +1,11 @@
 --TEST--
 Test autoload: a class in library Zend_*, static
+--INI--
+include_path=.
+display_errors=1
 --FILE--
 <?php
 require_once '../../../Lagged/Loader.php';
-
-set_include_path('.');
-ini_set('display_errors', 1);
 
 define('LAGGED_APPLICATION_DIR', '/foobar'); // doesn't have to exist, we just check format
 
