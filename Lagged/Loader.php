@@ -1,13 +1,43 @@
 <?php
 /**
- * One autoloader to rule them all. (Or something.)
+ * Copyright (c) 2008-2009, Till Klampaeckel
+ * 
+ * All rights reserved.
+ * 
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted provided that the following conditions are met:
+ * 
+ *  * Redistributions of source code must retain the above copyright notice, this
+ *    list of conditions and the following disclaimer.
+ *  * Redistributions in binary form must reproduce the above copyright notice, this
+ *    list of conditions and the following disclaimer in the documentation and/or
+ *    other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+ * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * PHP Version 5
  *
- * @author Till Klampaeckel <klampaeckel@lagged.de>
+ * @category Core
+ * @package  Lagged_Loader
+ * @author   Till Klampaeckel <till@php.net>
+ * @license  http://www.opensource.org/licenses/bsd-license.php The BSD License
+ * @version  SVN: $Id$
+ * @link     http://code.google.com/p/lagged/
  */
  
 /**
+ * One autoloader to rule them all. (Or something.)
+ *
  * We are assuming the following layout:
  * app/controllers/
  * app/models/
@@ -15,6 +45,14 @@
  * app/modules/Foo/app/models
  * library/Zend/
  * library/X/
+ *
+ *
+ * @category Core
+ * @package  Lagged_Loader
+ * @author   Till Klampaeckel <till@php.net>
+ * @license  http://www.opensource.org/licenses/bsd-license.php The BSD License
+ * @version  Release: @package_version@
+ * @link     http://code.google.com/p/lagged/
  */
 class Lagged_Loader
 {
@@ -46,6 +84,13 @@ class Lagged_Loader
     protected $include = true;
 
     static $instance = null;
+
+    /**
+     * @var string $namespace For custom library code.
+     * @see self::setNamespace()
+     * @see self::loadClass()
+     */
+    protected $namespace = null;
     
     /**
      * Lagged_Loader::__construct()
@@ -59,9 +104,12 @@ class Lagged_Loader
      * <code>
      * function __autoload($className)
      * {
-     *     static $loader = new Lagged_Loader(dirname(__FILE__));
+     *     static $loader;
+     *     $loader = new Lagged_Loader(dirname(__FILE__));
+     *     $loader->setNamespace('Foobar'); // support library/Foobar/*
      *     $loader->loadClass($className);
      * }
+     * </code>
      */
     public function __construct($appDir)
     {
@@ -151,8 +199,17 @@ class Lagged_Loader
     }
 
     /**
-     * Get a singleton.
+     * A singleton style approach. No idea if this does what I want/think but it
+     * sure works and it's still faster!
      *
+     * This method imitates Zend_Loader::loadClass() and is meant to mass-replace
+     * it in the framework code.
+     *
+     * @param string $className The name of the class.
+     * @param mixed  $dirs      We don't use this.
+     *
+     * @return void
+     * @see    Zend_Loader::loadClass()
      */
     static function load($className, $dirs = null)
     {
@@ -209,9 +266,15 @@ class Lagged_Loader
         if (substr($className, 0, 5) == 'Zend_') {
             return $this->loadLibrary($className);
         }
-        if (substr($className, 0, 7) == 'Lagged_') {
+        if (substr($className, 0, 7) == 'Lagged_') { // FIXME: test $this->namespace first
             return $this->loadLibrary($className);
         }
+        if ($this->namespace !== null) {
+            if (substr($className, 0, strlen($this->namespace)) == "{$this->namespace}_") {
+                return $this->loadLibrary($className);
+            }
+        }
+        
     }
 
     /**
@@ -302,5 +365,28 @@ class Lagged_Loader
         $this->modelsDir     = $this->appDir . '/modules/__MODULE__/app/models';
         $this->libraryDir    = $this->appDir . '/library';
     }
+
+    /**
+     * In case you want your own custom namespace in library, set it here.
+     * This obviously shouldn't contain spaces, etc.. The Zend_ and Lagged_
+     * namespaces are currently supported by default.
+     *
+     * @param string $namespace Class namespace, e.g. 'Foo'.
+     *
+     * @return void
+     */
+    public function setNamespace($namespace = null)
+    {
+        if ($namespace === null) {
+            return;
+        }
+        $namespace = trim($namespace);
+        if (substr($namespace, -1, 1) == '_') {
+            $namespace = substr($namespace, 0, -1);
+        }
+        if ($namespace == '') {
+            return;
+        }
+        $this->namespace = $namespace;
+    }
 }
-?>
