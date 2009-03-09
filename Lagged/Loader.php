@@ -270,7 +270,7 @@ class Lagged_Loader
             return $this->loadLibrary($className);
         }
         if ($this->namespace !== null) {
-            if (substr($className, 0, strlen($this->namespace)) == "{$this->namespace}_") {
+            if (substr($className, 0, (strlen($this->namespace)+1)) == "{$this->namespace}_") {
                 return $this->loadLibrary($className);
             }
         }
