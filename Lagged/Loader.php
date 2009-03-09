@@ -243,7 +243,6 @@ class Lagged_Loader
          */
         if (substr($className, 0, 6) == 'Model_') {
             return $this->loadModel($className);
-            return;
         }
         if ($this->currentModule != '') {
             $moduleLength = strlen($this->currentModule);
