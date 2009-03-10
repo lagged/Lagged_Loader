@@ -60,7 +60,8 @@ class Lagged_Loader
      * Directory variables.
      * @see self::__construct()
      */
-    protected $appDir;
+    static $appDir;
+
     protected $controllerDir;
     protected $libraryDir;
     protected $modelsDir;
@@ -111,9 +112,11 @@ class Lagged_Loader
      * }
      * </code>
      */
-    public function __construct($appDir)
+    public function __construct($appDir = null)
     {
-        $this->setDefaultPaths($appDir);
+        if (!empty($appDir)) {
+            $this->setDefaultPaths($appDir);
+        }
     }
     
     /**
@@ -214,7 +217,13 @@ class Lagged_Loader
     static function load($className, $dirs = null)
     {
         if (self::$instance === null) {
-            $cls = self::$instance = new Lagged_Loader(LAGGED_APPLICATION_DIR);
+            $path = null;
+            if (!empty(self::$appDir)) {
+                $path = self::$appDir;
+            } else {
+                $path = LAGGED_APPLICATION_DIR;
+            }
+            $cls = self::$instance = new Lagged_Loader($path);
         } else {
             $cls = self::$instance;
         }
@@ -348,6 +357,18 @@ class Lagged_Loader
     }
 
     /**
+     * Set application path. 
+     *
+     * @param string $appDir Path of your application, absolute.
+     *
+     * @return void
+     */
+    static public function setApplicationPath($appDir)
+    {
+        self::$appDir = $appDir;
+    }
+
+    /**
      * Set the default paths.
      *
      * @param string $appDir Application root.
@@ -358,11 +379,11 @@ class Lagged_Loader
      */
     protected function setDefaultPaths($appDir)
     {
-        $this->appDir = $appDir;
+        self::$appDir = $appDir;
 
-        $this->controllerDir = $this->appDir . '/modules/__MODULE__/app/controllers';
-        $this->modelsDir     = $this->appDir . '/modules/__MODULE__/app/models';
-        $this->libraryDir    = $this->appDir . '/library';
+        $this->controllerDir = self::$appDir . '/modules/__MODULE__/app/controllers';
+        $this->modelsDir     = self::$appDir . '/modules/__MODULE__/app/models';
+        $this->libraryDir    = self::$appDir . '/library';
     }
 
     /**
