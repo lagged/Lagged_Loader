@@ -7,8 +7,7 @@ display_errors=1
 <?php
 require_once '../../../Lagged/Loader.php';
 
-define('LAGGED_APPLICATION_DIR', '/foobar'); // doesn't have to exist, we just check format
-
+Lagged_Loader::setApplicationPath('/foobar');
 Lagged_Loader::load('Zend_Controller_Action');
 Lagged_Loader::load('Zend_Db');
 ?>
