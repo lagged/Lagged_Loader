@@ -1,5 +1,5 @@
 --TEST--
-Test autoload: model class in a module
+Test autoload: form class in a module
 --FILE--
 <?php
 require_once '../../../Lagged/Loader.php';
