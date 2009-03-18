@@ -63,6 +63,7 @@ class Lagged_Loader
     static $appDir;
 
     protected $controllerDir;
+    protected $formsDir;
     protected $libraryDir;
     protected $modelsDir;
 
@@ -260,6 +261,21 @@ class Lagged_Loader
                 return $this->loadModel($className);
             }
         }
+
+        /**
+         * @desc Load forms, classes need to be prefixed with 'Form_', or
+         *       'Module_Form_'.
+         */
+        if (substr($className, 0, 5) == 'Form_') {
+            return $this->loadForm($className);
+        }
+        if ($this->currentModule != '') {
+            $moduleLength = strlen($this->currentModule);
+            $moduleLength++; // for '_'
+            if (substr($className, $moduleLength, 5) == 'Form_') {
+                return $this->loadForm($className);
+            }
+        }
         
         /**
          * @desc Load controllers, e.g. 'FooController', or 'Module_FooController'.
@@ -308,6 +324,19 @@ class Lagged_Loader
     }
 
     /**
+     * Load a form class.
+     *
+     * @param string $className The class name of the form, e.g. Form_GuestBook
+     *                          or Social_Form_GuestBook if within a module.
+     * @return mixed
+     * @uses   self::loadFormOrModel()
+     */
+    protected function loadForm($className)
+    {
+        return $this->loadFormOrModel($className, 'form');
+    }
+
+    /**
      * Load a library, either include it, or return the path.
      *
      * @param string $className E.g., Zend_Db, or Lagged_Foobar.
@@ -332,12 +361,45 @@ class Lagged_Loader
      */
     protected function loadModel($className)
     {
-        $path = $this->getPath($this->modelsDir);
+        return $this->loadFormOrModel($className, 'model');
+    }
+
+    /**
+     * Load a form or a model.
+     *
+     * @param string $className The classname to load.
+     * @param string $loadType  Watcha wanna load: 'model' or 'form'.
+     *
+     * @return mixed
+     * @see    self::loadModel()
+     * @uses   self::getPath()
+     * @uses   self::$formsDir
+     * @uses   self::$modelsDir
+     * @uses   self::$currentModule
+     * @uses   self::$include
+     */
+    protected function loadFormOrModel($className, $loadType = 'model')
+    {
+        $path = '';
+        $size = 0;
+
+        switch ($loadType) {
+        case 'form':
+            $path .= $this->getPath($this->formsDir);
+            $size += 5;
+            break;
+        case 'model':
+            $path .= $this->getPath($this->modelsDir);
+            $size += 6;
+            break;
+        }
+
+
         $file = str_replace('_', '/', $className) . '.php';
         if ($this->currentModule != '') {
             $file = substr($file, (strlen($this->currentModule)+1));
         }
-        $file = substr($file, 6);
+        $file = substr($file, $size);
         $path .= '/' . $file;
         if ($this->include === true) {
             return include $path;
@@ -382,6 +444,7 @@ class Lagged_Loader
         self::$appDir = $appDir;
 
         $this->controllerDir = self::$appDir . '/modules/__MODULE__/app/controllers';
+        $this->formsDir      = self::$appDir . '/modules/__MODULE__/app/forms';
         $this->modelsDir     = self::$appDir . '/modules/__MODULE__/app/models';
         $this->libraryDir    = self::$appDir . '/library';
     }
