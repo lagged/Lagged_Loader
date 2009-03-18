@@ -41,8 +41,10 @@
  * We are assuming the following layout:
  * app/controllers/
  * app/models/
+ * app/forms/
  * app/modules/Foo/app/controllers
  * app/modules/Foo/app/models
+ * app/modules/Foo/app/forms
  * library/Zend/
  * library/X/
  *
@@ -57,11 +59,18 @@
 class Lagged_Loader
 {
     /**
-     * Directory variables.
+     * The application's directory.
+     *
      * @see self::__construct()
+     * @see self::setApplicationPath()
      */
     static $appDir;
 
+    /**
+     * Directory variables used by other protected methods.
+     *
+     * @see self::setDefaultPaths()
+     */
     protected $controllerDir;
     protected $formsDir;
     protected $libraryDir;
