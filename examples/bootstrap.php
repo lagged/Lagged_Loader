@@ -10,6 +10,7 @@
  * @version  SVN: $Id$
  * @license  http://www.opensource.org/licenses/bsd-license.php New BSD License
  * @link     http://www.lagged.de/
+ * @link     http://code.google.com/p/lagged/wiki/Lagged_Application
  */
 
 // Set the include path
@@ -80,6 +81,7 @@ set_include_path(
  * @license  http://www.opensource.org/licenses/bsd-license.php New BSD License
  * @version  Release: @package_version@
  * @link     http://www.lagged.de/
+ * @link     http://code.google.com/p/lagged/wiki/Lagged_Application
  * @final
  */
 final class Lagged_Application
@@ -87,17 +89,21 @@ final class Lagged_Application
     /**
      * The environment state of your current application
      *
-     * @var string $_environment Use in {@link app/etc/config.ini}
+     * @var string $_environment Used in {@link app/etc/config.ini}.
+     * @see self::setEnvironment()
+     * @see self::__construct()
      */
     private $_environment;
 
     /**
      * @var Zend_Acl
+     * @see self::_initSession()
      */
     private $_acl;
 
     /**
      * @var Zend_Auth
+     * @see self::_initSession()
      */
     private $_auth;
 
@@ -140,8 +146,10 @@ final class Lagged_Application
     /**
      * Convenience method to bootstrap the application
      *
-     * @return mixed
+     * @return void
      * @throws Zend_Exception if the environment is not set.
+     * @uses   self::initialize()
+     * @uses   self::setupRoutes()
      */
     public function start()
     {
@@ -155,9 +163,14 @@ final class Lagged_Application
 
     /**
      * _readConfig pulls the {@link app/etc/config.ini}.
+     *
+     * The application's root is added to the Zend_Config_Ini object.
      * 
      * @return Zend_Config_Ini
      * @uses   Zend_Registry
+     * @uses   self::getEnvironment()
+     * @uses   apc_fetch
+     * @uses   apc_store
      */
     private function _readConfig()
     {
