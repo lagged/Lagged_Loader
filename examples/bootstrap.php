@@ -106,7 +106,7 @@ final class Lagged_Application
      *
      * @param string $environment production, staging, testing, ...
      *
-     * @return ZfApplication
+     * @return Lagged_Application
      * @uses   self::setEnvironment()
      */
     public function __construct($environment = 'production')
