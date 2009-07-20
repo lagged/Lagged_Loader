@@ -12,12 +12,12 @@ define('LAGGED_APPLICATION_DIR', '/foobar'); // doesn't have to exist, we just c
 Lagged_Loader::load('Zend_Controller_Action');
 Lagged_Loader::load('Zend_Db');
 ?>
---EXPECT--
-Warning: include(/foobar/library/Zend/Controller/Action.php): failed to open stream: No such file or directory in /usr/home/till/public_html/lagged/lagged/trunk/Lagged/Loader.php on line 359
+--EXPECTF--
+Warning: include(/foobar/library/Zend/Controller/Action.php): failed to open stream: No such file or directory in %s/Lagged/Loader.php on line %d
 
-Warning: include(): Failed opening '/foobar/library/Zend/Controller/Action.php' for inclusion (include_path='.') in /usr/home/till/public_html/lagged/lagged/trunk/Lagged/Loader.php on line 359
+Warning: include(): Failed opening '/foobar/library/Zend/Controller/Action.php' for inclusion (include_path='.') in %s/Lagged/Loader.php on line %d
 
-Warning: include(/foobar/library/Zend/Db.php): failed to open stream: No such file or directory in /usr/home/till/public_html/lagged/lagged/trunk/Lagged/Loader.php on line 359
+Warning: include(/foobar/library/Zend/Db.php): failed to open stream: No such file or directory in %s/Lagged/Loader.php on line %d
 
-Warning: include(): Failed opening '/foobar/library/Zend/Db.php' for inclusion (include_path='.') in /usr/home/till/public_html/lagged/lagged/trunk/Lagged/Loader.php on line 359
+Warning: include(): Failed opening '/foobar/library/Zend/Db.php' for inclusion (include_path='.') in %s/Lagged/Loader.php on line %d
 
