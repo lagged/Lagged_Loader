@@ -10,5 +10,5 @@ $loader = new Lagged_Loader($appDir);
 var_dump($loader->getClassPath('FooController'));
 ?>
 --EXPECT--
-string(41) "/foobar/app/controllers/FooController.php"
+string(41) "/foobar/app/modules/default/controllers/FooController.php"
 
