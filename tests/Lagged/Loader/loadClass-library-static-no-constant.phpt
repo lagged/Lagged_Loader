@@ -5,7 +5,7 @@ include_path=.
 display_errors=1
 --FILE--
 <?php
-require_once '../../../Lagged/Loader.php';
+require_once __DIR__ . '/../../../src/Lagged/Loader.php';
 
 Lagged_Loader::setApplicationPath('/foobar');
 Lagged_Loader::load('Zend_Controller_Action');

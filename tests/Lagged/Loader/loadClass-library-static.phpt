@@ -5,7 +5,7 @@ include_path=.
 display_errors=1
 --FILE--
 <?php
-require_once '../../../Lagged/Loader.php';
+require_once __DIR__ . '/../../../src/Lagged/Loader.php';
 
 define('LAGGED_APPLICATION_DIR', '/foobar'); // doesn't have to exist, we just check format
 

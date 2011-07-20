@@ -2,7 +2,7 @@
 Test autoload: form class in a module
 --FILE--
 <?php
-require_once '../../../Lagged/Loader.php';
+require_once __DIR__ . '/../../../src/Lagged/Loader.php';
 
 $appDir = '/foobar'; // doesn't have to exist, we just check format
 
