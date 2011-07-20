@@ -25,3 +25,5 @@
     define('LAGGED_APPLICATION_DIR', '/absolute/path/to/your/app'); // aka 'root'
     require_once '/absolute/path/to/Lagged/Loader.php';
     spl_autoload_register(array('Lagged_Loader', 'loadClass'));
+    
+See `tests/` for more examples.
