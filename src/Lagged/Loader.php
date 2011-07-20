@@ -83,10 +83,10 @@ class Lagged_Loader
     
     /**
      * @var string $defaultModule The name of the default module for the paths,
-     *                            sometimes e.g. app/default/controller or sometimes
-     *                            app/controller.
+     *                            sometimes e.g. app/modules/default/controller or
+     *                            sometimes app/controller.
      */
-    protected $defaultModule = '';
+    protected $defaultModule = 'default';
     
     /**
      * @var bool $include Set to false for unit-testing the code.
@@ -140,8 +140,14 @@ class Lagged_Loader
     protected function detectModule($className)
     {
         if (substr($className, 0, 6) == 'Model_') {
+            $this->currentModule = $this->defaultModule;
             return;
         }
+        if (substr($className, 0, 5) == 'Form_') {
+            $this->currentModule = $this->defaultModule;
+            return;
+        }
+
         if (strstr($className, '_Model_')) {
             $moduleEnd = strpos($className, '_', 0);
             if ($moduleEnd > 0) {
@@ -158,7 +164,10 @@ class Lagged_Loader
                 $this->currentModule = substr($className, 0, ($moduleEnd));
                 return;
             }
+            $this->currentModule = $this->defaultModule;
+            return;
         }
+        
         return;
     }
     
@@ -190,11 +199,10 @@ class Lagged_Loader
      */
     protected function getPath($path)
     {
-        if ($this->currentModule != '') {
-            $path = str_replace('__MODULE__', $this->currentModule, $path);
-        } else {
-            $path = str_replace('modules/__MODULE__/', '', $path);
+        if ($this->currentModule == '') {
+            throw new RuntimeException("Cannot be empty");
         }
+        $path = str_replace('__MODULE__', $this->currentModule, $path);
         return $path;
     }
 
@@ -321,11 +329,12 @@ class Lagged_Loader
     {
         $path = $this->getPath($this->controllerDir) . '/';
         if ($this->currentModule == '') {
-            $path .= $className . '.php';
-        } else {
-            $path .= str_replace($this->currentModule . '_', '', $className);
-            $path .= '.php';
+            throw new RuntimeException("CurrentModule cannot be empty");
         }
+
+        $path .= str_replace($this->currentModule . '_', '', $className);
+        $path .= '.php';
+
         if ($this->include === true) {
             return include $path;
         }
@@ -405,9 +414,11 @@ class Lagged_Loader
 
 
         $file = str_replace('_', '/', $className) . '.php';
-        if ($this->currentModule != '') {
+        if ($this->currentModule !== 'default') {
+            //var_dump('hi', $path, $file, 'ho');
             $file = substr($file, (strlen($this->currentModule)+1));
         }
+
         $file = substr($file, $size);
         $path .= '/' . $file;
         if ($this->include === true) {
@@ -424,7 +435,7 @@ class Lagged_Loader
      */
     public function reset()
     {
-        $this->currentModule = null;
+        $this->currentModule = "";
     }
 
     /**
@@ -452,9 +463,9 @@ class Lagged_Loader
     {
         self::$appDir = $appDir;
 
-        $this->controllerDir = self::$appDir . '/modules/__MODULE__/app/controllers';
-        $this->formsDir      = self::$appDir . '/modules/__MODULE__/app/forms';
-        $this->modelsDir     = self::$appDir . '/modules/__MODULE__/app/models';
+        $this->controllerDir = self::$appDir . '/app/modules/__MODULE__/controllers';
+        $this->formsDir      = self::$appDir . '/app/modules/__MODULE__/forms';
+        $this->modelsDir     = self::$appDir . '/app/modules/__MODULE__/models';
         $this->libraryDir    = self::$appDir . '/library';
     }
 
