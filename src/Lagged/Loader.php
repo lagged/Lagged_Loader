@@ -152,7 +152,7 @@ class Lagged_Loader
             $moduleEnd = strpos($className, '_', 0);
             if ($moduleEnd > 0) {
                 if (substr($className, ($moduleEnd+1), 6) == 'Model_') {
-                    $this->currentModule = substr($className, 0, ($moduleEnd));
+                    $this->currentModule = strtolower(substr($className, 0, ($moduleEnd)));
                     return;
                 }
             }
@@ -161,7 +161,7 @@ class Lagged_Loader
             && substr($className, -11) != '_Controller') {
             $moduleEnd = strpos($className, '_');
             if ($moduleEnd > 0) {
-                $this->currentModule = substr($className, 0, ($moduleEnd));
+                $this->currentModule = strtolower(substr($className, 0, ($moduleEnd)));
                 return;
             }
             $this->currentModule = $this->defaultModule;
@@ -331,8 +331,11 @@ class Lagged_Loader
         if ($this->currentModule == '') {
             throw new RuntimeException("CurrentModule cannot be empty");
         }
-
-        $path .= str_replace($this->currentModule . '_', '', $className);
+        if ($this->currentModule != 'default') {
+            $path .= str_replace(ucfirst($this->currentModule) . '_', '', $className);
+        } else {
+            $path .= $className;
+        }
         $path .= '.php';
 
         if ($this->include === true) {
