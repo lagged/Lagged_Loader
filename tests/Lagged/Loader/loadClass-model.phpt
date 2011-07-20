@@ -10,5 +10,5 @@ $loader = new Lagged_Loader($appDir);
 var_dump($loader->getClassPath('Model_Foo'));
 ?>
 --EXPECT--
-string(26) "/foobar/app/modules/default/models/Foo.php"
+string(42) "/foobar/app/modules/default/models/Foo.php"
 

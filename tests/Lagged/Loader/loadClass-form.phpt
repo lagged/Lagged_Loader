@@ -10,4 +10,4 @@ $loader = new Lagged_Loader($appDir);
 var_dump($loader->getClassPath('Form_Foo'));
 ?>
 --EXPECT--
-string(25) "/foobar/app/modules/default/forms/Foo.php"
+string(41) "/foobar/app/modules/default/forms/Foo.php"
