@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2008-2009, Till Klampaeckel
+ * Copyright (c) 2008-2011, Till Klampaeckel
  * 
  * All rights reserved.
  * 
@@ -156,6 +156,7 @@ class Lagged_Loader
                 }
             }
         }
+
         if (substr($className, -10) == 'Controller'
             && substr($className, -11) != '_Controller') {
             $moduleEnd = strpos($className, '_');
