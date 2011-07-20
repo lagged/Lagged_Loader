@@ -1,0 +1,5 @@
+<phpunit debug="true" colors="true">
+    <testsuite name="Lagged Loader">
+        <file>./Lagged/Loader/TestSuite.php</file>
+    </testsuite>
+</phpunit>
