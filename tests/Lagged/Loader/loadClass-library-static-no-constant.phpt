@@ -7,7 +7,7 @@ display_errors=1
 <?php
 require_once __DIR__ . '/../../../src/Lagged/Loader.php';
 
-Lagged_Loader::setApplicationPath('/foobar');
+Lagged_Loader::setRootPath('/foobar');
 Lagged_Loader::load('Zend_Controller_Action');
 Lagged_Loader::load('Zend_Db');
 ?>

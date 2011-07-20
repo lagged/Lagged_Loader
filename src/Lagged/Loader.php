@@ -62,9 +62,9 @@ class Lagged_Loader
      * The application's directory.
      *
      * @see self::__construct()
-     * @see self::setApplicationPath()
+     * @see self::setRootPath()
      */
-    static $appDir;
+    static $rootDir;
 
     /**
      * Directory variables used by other protected methods.
@@ -106,8 +106,7 @@ class Lagged_Loader
     /**
      * Lagged_Loader::__construct()
      *
-     * @param string $appDir The root of the application.
-     * @param string $module The current module, when 'empty', default is assumed.
+     * @param string $rootDir The root of the application.
      *
      * @return Lagged_Loader
      * @uses   self::setDefaultPaths()
@@ -122,10 +121,10 @@ class Lagged_Loader
      * }
      * </code>
      */
-    public function __construct($appDir = null)
+    public function __construct($rootDir = null)
     {
-        if (!empty($appDir)) {
-            $this->setDefaultPaths($appDir);
+        if ($rootDir !== null) {
+            $this->setDefaultPaths($rootDir);
         }
     }
     
@@ -236,8 +235,8 @@ class Lagged_Loader
     {
         if (self::$instance === null) {
             $path = null;
-            if (!empty(self::$appDir)) {
-                $path = self::$appDir;
+            if (!empty(self::$rootDir)) {
+                $path = self::$rootDir;
             } else {
                 $path = LAGGED_APPLICATION_DIR;
             }
@@ -444,32 +443,32 @@ class Lagged_Loader
     /**
      * Set application path. 
      *
-     * @param string $appDir Path of your application, absolute.
+     * @param string $rootDir Path of your application, absolute.
      *
      * @return void
      */
-    static public function setApplicationPath($appDir)
+    static public function setRootPath($rootDir)
     {
-        self::$appDir = $appDir;
+        self::$rootDir = $rootDir;
     }
 
     /**
      * Set the default paths.
      *
-     * @param string $appDir Application root.
+     * @param string $rootDir Application root.
      *
      * @return void
      * @see    self::__construct()
      * @see    self::loadClass()
      */
-    protected function setDefaultPaths($appDir)
+    protected function setDefaultPaths($rootDir)
     {
-        self::$appDir = $appDir;
+        self::$rootDir = $rootDir;
 
-        $this->controllerDir = self::$appDir . '/app/modules/__MODULE__/controllers';
-        $this->formsDir      = self::$appDir . '/app/modules/__MODULE__/forms';
-        $this->modelsDir     = self::$appDir . '/app/modules/__MODULE__/models';
-        $this->libraryDir    = self::$appDir . '/library';
+        $this->controllerDir = self::$rootDir . '/app/modules/__MODULE__/controllers';
+        $this->formsDir      = self::$rootDir . '/app/modules/__MODULE__/forms';
+        $this->modelsDir     = self::$rootDir . '/app/modules/__MODULE__/models';
+        $this->libraryDir    = self::$rootDir . '/library';
     }
 
     /**
