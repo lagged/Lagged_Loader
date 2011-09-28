@@ -22,10 +22,10 @@ http://github.com/lagged/Lagged_loader
   <active>yes</active>
  </developer>
  <date>2011-09-28</date>
- <time>16:12:21</time>
+ <time>16:50:56</time>
  <version>
-  <release>0.3.0</release>
-  <api>0.3.0</api>
+  <release>0.4.0</release>
+  <api>0.4.0</api>
  </version>
  <stability>
   <release>alpha</release>
@@ -33,8 +33,7 @@ http://github.com/lagged/Lagged_loader
  </stability>
  <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
-* small bugfixes in the loader code (play nice with the autoloader chain)
- * load forms (from modules)
+* added Lagged_PEARLoader (simple, lean autoloader for PEAR)
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -42,9 +41,15 @@ http://github.com/lagged/Lagged_loader
     <dir name="Lagged">
      <file baseinstalldir="/" name="LibraryLoader.php" role="php">
       <tasks:replace from="@package_version@" to="version" type="package-info" />
+      <tasks:replace from="@php_dir@" to="php_dir" type="pear-config" />
      </file>
      <file baseinstalldir="/" name="Loader.php" role="php">
       <tasks:replace from="@package_version@" to="version" type="package-info" />
+      <tasks:replace from="@php_dir@" to="php_dir" type="pear-config" />
+     </file>
+     <file baseinstalldir="/" name="PEARLoader.php" role="php">
+      <tasks:replace from="@package_version@" to="version" type="package-info" />
+      <tasks:replace from="@php_dir@" to="php_dir" type="pear-config" />
      </file>
     </dir> <!-- /src/Lagged -->
    </dir> <!-- /src -->
@@ -93,6 +98,7 @@ http://github.com/lagged/Lagged_loader
   <filelist>
    <install as="Lagged/LibraryLoader.php" name="src/Lagged/LibraryLoader.php" />
    <install as="Lagged/Loader.php" name="src/Lagged/Loader.php" />
+   <install as="Lagged/PEARLoader.php" name="src/Lagged/PEARLoader.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -125,6 +131,21 @@ Initial release. (just fixing PEAR version to match tag on github)
    <notes>
 * small bugfixes in the loader code (play nice with the autoloader chain)
  * load forms (from modules)
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.4.0</release>
+    <api>0.4.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2011-09-28</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* added Lagged_PEARLoader (simple, lean autoloader for PEAR)
    </notes>
   </release>
  </changelog>
