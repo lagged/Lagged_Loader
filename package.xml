@@ -22,10 +22,10 @@ http://github.com/lagged/Lagged_loader
   <active>yes</active>
  </developer>
  <date>2011-09-28</date>
- <time>14:52:41</time>
+ <time>16:12:21</time>
  <version>
-  <release>0.2.0</release>
-  <api>0.2.0</api>
+  <release>0.3.0</release>
+  <api>0.3.0</api>
  </version>
  <stability>
   <release>alpha</release>
@@ -33,7 +33,8 @@ http://github.com/lagged/Lagged_loader
  </stability>
  <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
-Initial release. (just fixing PEAR version to match tag on github)
+* small bugfixes in the loader code (play nice with the autoloader chain)
+ * load forms (from modules)
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -108,6 +109,22 @@ Initial release. (just fixing PEAR version to match tag on github)
    <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
 Initial release. (just fixing PEAR version to match tag on github)
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.3.0</release>
+    <api>0.3.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2011-09-28</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* small bugfixes in the loader code (play nice with the autoloader chain)
+ * load forms (from modules)
    </notes>
   </release>
  </changelog>
