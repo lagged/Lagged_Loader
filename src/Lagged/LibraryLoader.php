@@ -60,6 +60,8 @@ class Lagged_LibraryLoader
 
         if ($appDir === null) {
             $this->appDir = LAGGED_APPLICATION_DIR;
+        } else {
+            $this->appDir = $appDir;
         }
     }
 
