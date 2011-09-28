@@ -6,13 +6,12 @@ ini_set('date.timezone', 'Europe/Berlin');
 require_once 'PEAR/PackageFileManager2.php';
 PEAR::setErrorHandling(PEAR_ERROR_DIE);
 
-$api_version     = '0.3.0';
+$api_version     = '0.4.0';
 $api_state       = 'alpha';
 
 $release_version = $api_version;
 $release_state   = $api_state;
-$release_notes   = " * small bugfixes in the loader code (play nice with the autoloader chain)\n"
-                 . " * load forms (from modules)";
+$release_notes   = " * added Lagged_PEARLoader (simple, lean autoloader for PEAR) \n";
 
 $description = "A better autoloader for the Zend Framework: \n"
     . "http://github.com/lagged/Lagged_loader \n";
@@ -107,6 +106,14 @@ foreach ($files as $file) {
        '@package_version@',
        'version'
     );
+
+    $package->addReplacement(
+        $file2,
+        'pear-config',
+        '@php_dir@',
+        'php_dir'
+    );
+
     $file2 = str_replace($base, '', $file);
     $package->addInstallAs($file2, str_replace('src/', '', $file2));
 }
