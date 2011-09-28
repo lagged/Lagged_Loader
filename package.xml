@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.4" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+    http://pear.php.net/dtd/tasks-1.0.xsd
+    http://pear.php.net/dtd/package-2.0
+    http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Lagged_Loader</name>
+ <channel>easybib.github.com/pear</channel>
+ <summary>A better autoloader for the Zend_Framework.</summary>
+ <description>A better autoloader for the Zend Framework: 
+http://github.com/lagged/Lagged_loader 
+ </description>
+ <lead>
+  <name>Till Klampaeckel</name>
+  <user>till</user>
+  <email>till@lagged.biz</email>
+  <active>yes</active>
+ </lead>
+ <developer>
+  <name>Michael Scholl</name>
+  <user>mischosch</user>
+  <email>michael@sch0ll.de</email>
+  <active>yes</active>
+ </developer>
+ <date>2011-09-28</date>
+ <time>14:20:12</time>
+ <version>
+  <release>0.1.0</release>
+  <api>0.1.0</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
+ <notes>
+Initial release.
+ </notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <dir name="src">
+    <dir name="Lagged">
+     <file baseinstalldir="/" name="LibraryLoader.php" role="php">
+      <tasks:replace from="@package_version@" to="version" type="package-info" />
+     </file>
+     <file baseinstalldir="/" name="Loader.php" role="php">
+      <tasks:replace from="@package_version@" to="version" type="package-info" />
+     </file>
+    </dir> <!-- /src/Lagged -->
+   </dir> <!-- /src -->
+   <dir name="tests">
+    <dir name="Lagged">
+     <dir name="Loader">
+      <file baseinstalldir="/" name="loadClass-controller-module.phpt" role="test" />
+      <file baseinstalldir="/" name="loadClass-controller.phpt" role="test" />
+      <file baseinstalldir="/" name="loadClass-form-module.phpt" role="test" />
+      <file baseinstalldir="/" name="loadClass-form.phpt" role="test" />
+      <file baseinstalldir="/" name="loadClass-library-namespace.phpt" role="test" />
+      <file baseinstalldir="/" name="loadClass-library-static-no-constant.phpt" role="test" />
+      <file baseinstalldir="/" name="loadClass-library-static.phpt" role="test" />
+      <file baseinstalldir="/" name="loadClass-library.phpt" role="test" />
+      <file baseinstalldir="/" name="loadClass-model-module.phpt" role="test" />
+      <file baseinstalldir="/" name="loadClass-model.phpt" role="test" />
+      <file baseinstalldir="/" name="TestSuite.php" role="test" />
+     </dir> <!-- /tests/Lagged/Loader -->
+    </dir> <!-- /tests/Lagged -->
+    <file baseinstalldir="/" name="phpunit.xml" role="test" />
+   </dir> <!-- /tests -->
+   <file baseinstalldir="/" name="README.md" role="doc" />
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0a7</min>
+   </pearinstaller>
+   <extension>
+    <name>spl</name>
+   </extension>
+  </required>
+  <optional>
+   <package>
+    <name>ZF</name>
+    <channel>pear.zfcampus.org</channel>
+    <min>1.10.0</min>
+   </package>
+  </optional>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install as="Lagged/LibraryLoader.php" name="src/Lagged/LibraryLoader.php" />
+   <install as="Lagged/Loader.php" name="src/Lagged/Loader.php" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2011-09-28</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+Initial release.
+   </notes>
+  </release>
+ </changelog>
+</package>
