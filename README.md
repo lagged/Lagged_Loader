@@ -21,11 +21,22 @@
  
 ### Usage
 
+Basic usage to load `Zend_`, `Lagged_`, forms, models and controllers:
+
     <?php
     define('LAGGED_APPLICATION_DIR', '/absolute/path/to/your/app'); // aka 'root'
     require_once '/absolute/path/to/Lagged/Loader.php';
     spl_autoload_register(array('Lagged_Loader', 'loadClass'));
 
+#### Custom namespaces for (global) libraries
+
+In case you have your own libraries in `library/MyNamespace/`:
+
+    <?php
+    require_once '/absolute/path/to/Lagged/Loader.php';
+    $loader = new Lagged_Loader('/absolute/path/to/your/app');
+    $loader->setNamespace('MyNamespace');
+    spl_autoload_register(array($loader, 'load'));
 
 #### Library Loading?!
 
