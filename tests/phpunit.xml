@@ -2,4 +2,7 @@
     <testsuite name="Lagged Loader">
         <file>./Lagged/Loader/TestSuite.php</file>
     </testsuite>
+    <testsuite name="Lagged LibraryLoader">
+        <file>./Lagged/LibraryLoader/LibraryLoaderTestSuite.php</file>
+    </testsuite>
 </phpunit>
