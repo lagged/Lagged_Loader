@@ -156,6 +156,16 @@ class Lagged_Loader
                 }
             }
         }
+        
+        if (strstr($className, '_Form_')) {
+            $moduleEnd = strpos($className, '_', 0);
+            if ($moduleEnd > 0) {
+                if (substr($className, ($moduleEnd+1), 5) == 'Form_') {
+                    $this->currentModule = strtolower(substr($className, 0, ($moduleEnd)));
+                    return;
+                }
+            }
+        }
 
         if (substr($className, -10) == 'Controller'
             && substr($className, -11) != '_Controller') {
