@@ -1,4 +1,4 @@
-## Lagged_Loader
+## Lagged_Loader and co.
 
  * Zend Framework
  * best get _master_ or `0.2.0`, `0.1.0` is an outdated import from Google Code
@@ -18,7 +18,14 @@
  * forms
  * models
  * _global_ library folder
- 
+
+### Installation
+
+    pear channel-discover easybib.github.com/pear
+    pear install easybib/Lagged_Loader-alpha
+
+That's all!
+
 ### Usage
 
 Basic usage to load `Zend_`, `Lagged_`, forms, models and controllers:
@@ -51,5 +58,14 @@ Usage is simple:
     $libraryLoader = new Lagged_LibraryLoader('my-module');
     spl_autoload_register(array($libraryLoader, 'load'));
 
+#### PEAR
+
+**This will only work if you installed this code using the PEAR channel.**
+
+Load your PEAR libs, this part is work in progress:
+
+    <?php
+    require_once 'Lagged/PEARLoader.php';
+    spl_autoload_register('Lagged_PEARLoader', 'loadClass'));
     
 See `tests/` for more examples.
