@@ -29,7 +29,7 @@
 
 #### Library Loading?!
 
-It's neaat to be able to distribute a `ibrary/` folder inside a module as well. This allows for
+It's neat to be able to distribute a `library/` folder inside a module as well. This allows for
 distributing dependencies where they are needed.
 
 Usage is simple:
