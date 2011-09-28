@@ -76,7 +76,7 @@ class Lagged_LibraryLoader
     {
         static $moduleLibraryPath;
         if ($moduleLibraryPath === null) {
-            $moduleLibraryPath = $this->appDir . '/modules/' . $this->module . '/library/';
+            $moduleLibraryPath = $this->appDir . '/app/modules/' . $this->module . '/library/';
         }
 
         $file = str_replace('_', '/', $className) . '.php';
