@@ -59,7 +59,7 @@ class Lagged_LibraryLoader
         $this->module = strtolower($module);
 
         if ($appDir === null) {
-            $this->appDir = LAGGED_APPLICATION_PATH;
+            $this->appDir = LAGGED_APPLICATION_DIR;
         }
     }
 
