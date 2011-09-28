@@ -22,10 +22,10 @@ http://github.com/lagged/Lagged_loader
   <active>yes</active>
  </developer>
  <date>2011-09-28</date>
- <time>16:50:56</time>
+ <time>20:15:54</time>
  <version>
-  <release>0.4.0</release>
-  <api>0.4.0</api>
+  <release>0.4.1</release>
+  <api>0.4.1</api>
  </version>
  <stability>
   <release>alpha</release>
@@ -33,7 +33,8 @@ http://github.com/lagged/Lagged_loader
  </stability>
  <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
-* added Lagged_PEARLoader (simple, lean autoloader for PEAR)
+* bugfix in Lagged_LibraryLoader: when supplied via __construct(), appDir was not set 
+ * bugfix in Lagged_LibraryLoader: app dir was assuming it contained &apos;app&apos;
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -146,6 +147,22 @@ Initial release. (just fixing PEAR version to match tag on github)
    <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
 * added Lagged_PEARLoader (simple, lean autoloader for PEAR)
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.4.1</release>
+    <api>0.4.1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2011-09-28</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* bugfix in Lagged_LibraryLoader: when supplied via __construct(), appDir was not set 
+ * bugfix in Lagged_LibraryLoader: app dir was assuming it contained &apos;app&apos;
    </notes>
   </release>
  </changelog>
