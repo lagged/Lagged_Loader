@@ -245,7 +245,7 @@ class Lagged_Loader
         } else {
             $cls = self::$instance;
         }
-        $cls->loadClass($className, $dirs);
+        return $cls->loadClass($className, $dirs);
     }
 
     /**
@@ -263,7 +263,7 @@ class Lagged_Loader
          * @desc Auto-detect the current module which we are autoloading "from".
          */
         $this->detectModule($className);
-        
+
         /**
          * @desc Load models, classes need to be prefixed with 'Model_', or
          *       'Module_Model_'.
@@ -293,7 +293,7 @@ class Lagged_Loader
                 return $this->loadForm($className);
             }
         }
-        
+
         /**
          * @desc Load controllers, e.g. 'FooController', or 'Module_FooController'.
          *       Unfortunately controllers break the one naming convention in the
@@ -303,7 +303,7 @@ class Lagged_Loader
             && substr($className, -11) != '_Controller') { // avoid Foo_Bar_Controller
             return $this->loadController($className);
         }
-        
+
         if (substr($className, 0, 5) == 'Zend_') {
             return $this->loadLibrary($className);
         }
@@ -315,7 +315,7 @@ class Lagged_Loader
                 return $this->loadLibrary($className);
             }
         }
-        
+        return false;
     }
 
     /**
