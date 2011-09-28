@@ -1,7 +1,13 @@
 <?php
+$test = 'Zend_Loader';
+
 include __DIR__ . '/setup.php';
 
 require $_SERVER['HOME'] . '/Documents/workspaces/imagineeasy_v5/trunk/library/Zend/Loader.php';
+
+function __autoload($className) {
+    return Zend_Loader::loadClass($className);
+}
 
 $start = microtime(true);
 $data  = array();

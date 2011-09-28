@@ -1,4 +1,6 @@
 <?php
+echo "TEST: $test" . PHP_EOL . PHP_EOL;
+
 $include_path  = '';
 $include_path .= $_SERVER['HOME'] . '/Documents/workspaces/imagineeasy_v5/trunk/library:';
 $include_path .= '.';

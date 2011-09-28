@@ -1,7 +1,9 @@
 <?php
+$test = 'Lagged_Loader';
+
 include __DIR__ . '/setup.php';
 
-define('LAGGED_APPLICATION_DIR', '~/Documents/workspaces/imagineeasy_v5/trunk/');
+define('LAGGED_APPLICATION_DIR', $_SERVER['HOME'] . '/Documents/workspaces/imagineeasy_v5/trunk/');
 
 function __autoload($className) {
     Lagged_Loader::load($className);
