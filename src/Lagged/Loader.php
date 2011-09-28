@@ -157,7 +157,7 @@ class Lagged_Loader
             }
         }
         
-        if (strstr($className, '_Form_')) {
+        if (strstr($className, '_Form_') && substr($className, 0, 5) != 'Zend_') {
             $moduleEnd = strpos($className, '_', 0);
             if ($moduleEnd > 0) {
                 if (substr($className, ($moduleEnd+1), 5) == 'Form_') {
