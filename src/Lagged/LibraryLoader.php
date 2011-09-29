@@ -37,9 +37,14 @@
 class Lagged_LibraryLoader
 {
     /**
-     * @var string $appDir Application directory (root)
+     * @var string $rootDir Root application directory
      */
-    protected $appDir;
+    protected $rootDir;
+
+    /**
+     * @var string $appDirName Application foldr name
+     */
+    protected $appDirName;
 
     /**
      * @var string $module Name of the module which includes the library folder.
@@ -50,19 +55,22 @@ class Lagged_LibraryLoader
      * __construct
      *
      * @param string $module
-     * @param mixed  $appDir If 'null', LAGGED_APPLICATION_PATH is used.
+     * @param mixed  $rootDir    If 'null', LAGGED_APPLICATION_DIR is used.
+     * @param string $appDirName app|application folder name
      *
      * @return $this
      */
-    public function __construct($module, $appDir = null)
+    public function __construct($module, $rootDir = null, $appDirName = 'app')
     {
         $this->module = strtolower($module);
 
-        if ($appDir === null) {
-            $this->appDir = LAGGED_APPLICATION_DIR;
+        if ($rootDir === null) {
+            $this->rootDir = LAGGED_APPLICATION_DIR;
         } else {
-            $this->appDir = $appDir;
+            $this->rootDir = $rootDir;
         }
+
+        $this->appDirName = $appDirName;
     }
 
     /**
@@ -76,7 +84,8 @@ class Lagged_LibraryLoader
     {
         static $moduleLibraryPath;
         if ($moduleLibraryPath === null) {
-            $moduleLibraryPath = $this->appDir . '/app/modules/' . $this->module . '/library/';
+            $moduleLibraryPath = $this->rootDir . '/' . $this->appDirName
+                . '/modules/' . $this->module . '/library/';
         }
 
         $file = str_replace('_', '/', $className) . '.php';

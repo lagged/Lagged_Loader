@@ -59,12 +59,20 @@
 class Lagged_Loader
 {
     /**
-     * The application's directory.
+     * The application root directory.
      *
      * @see self::__construct()
      * @see self::setRootPath()
      */
     static $rootDir;
+
+    /**
+     * The application's directory.
+     *
+     * @see self::__construct()
+     * @see self::setRootPath()
+     */
+    protected $appDirName = 'app';
 
     /**
      * Directory variables used by other protected methods.
@@ -106,7 +114,8 @@ class Lagged_Loader
     /**
      * Lagged_Loader::__construct()
      *
-     * @param string $rootDir The root of the application.
+     * @param string $rootDir    The root of the application.
+     * @param string $appDirName app|application folder name.
      *
      * @return Lagged_Loader
      * @uses   self::setDefaultPaths()
@@ -121,8 +130,12 @@ class Lagged_Loader
      * }
      * </code>
      */
-    public function __construct($rootDir = null)
+    public function __construct($rootDir = null, $appDirName = null)
     {
+        if ($appDirName !== null) {
+            $this->appDirName = $appDirName;
+        }
+
         if ($rootDir !== null) {
             $this->setDefaultPaths($rootDir);
         }
@@ -474,11 +487,12 @@ class Lagged_Loader
      */
     protected function setDefaultPaths($rootDir)
     {
-        self::$rootDir = $rootDir;
+        self::$rootDir  = $rootDir;
+        $applicationDir = $rootDir . '/' . $this->appDirName;
 
-        $this->controllerDir = self::$rootDir . '/app/modules/__MODULE__/controllers';
-        $this->formsDir      = self::$rootDir . '/app/modules/__MODULE__/forms';
-        $this->modelsDir     = self::$rootDir . '/app/modules/__MODULE__/models';
+        $this->controllerDir = $applicationDir . '/modules/__MODULE__/controllers';
+        $this->formsDir      = $applicationDir . '/modules/__MODULE__/forms';
+        $this->modelsDir     = $applicationDir . '/modules/__MODULE__/models';
         $this->libraryDir    = self::$rootDir . '/library';
     }
 
