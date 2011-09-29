@@ -42,9 +42,9 @@
  * app/controllers/
  * app/models/
  * app/forms/
- * app/modules/Foo/app/controllers
- * app/modules/Foo/app/models
- * app/modules/Foo/app/forms
+ * app/modules/Foo/controllers
+ * app/modules/Foo/models
+ * app/modules/Foo/forms
  * library/Zend/
  * library/X/
  *
