@@ -83,6 +83,7 @@ class Lagged_Loader
     protected $formsDir;
     protected $libraryDir;
     protected $modelsDir;
+    protected $servicesDir;
 
     /**
      * @var string $currentModule The module we are autoloading for.
@@ -159,6 +160,10 @@ class Lagged_Loader
             $this->currentModule = $this->defaultModule;
             return;
         }
+        if (substr($className, 0, 8) == 'Service_') {
+            $this->currentModule = $this->defaultModule;
+            return;
+        }
 
         if (strstr($className, '_Model_')) {
             $moduleEnd = strpos($className, '_', 0);
@@ -169,11 +174,21 @@ class Lagged_Loader
                 }
             }
         }
-        
+
         if (strstr($className, '_Form_') && substr($className, 0, 5) != 'Zend_') {
             $moduleEnd = strpos($className, '_', 0);
             if ($moduleEnd > 0) {
                 if (substr($className, ($moduleEnd+1), 5) == 'Form_') {
+                    $this->currentModule = strtolower(substr($className, 0, ($moduleEnd)));
+                    return;
+                }
+            }
+        }
+
+        if (strstr($className, '_Service_') && substr($className, 0, 5) != 'Zend_') {
+            $moduleEnd = strpos($className, '_', 0);
+            if ($moduleEnd > 0) {
+                if (substr($className, ($moduleEnd+1), 8) == 'Service_') {
                     $this->currentModule = strtolower(substr($className, 0, ($moduleEnd)));
                     return;
                 }
@@ -190,10 +205,10 @@ class Lagged_Loader
             $this->currentModule = $this->defaultModule;
             return;
         }
-        
+
         return;
     }
-    
+
     /**
      * This is a public method for unit-testing the autoloader.
      *
@@ -317,6 +332,17 @@ class Lagged_Loader
             }
         }
 
+        if (substr($className, 0, 8) == 'Service_') {
+            return $this->loadService($className);
+        }
+        if ($this->currentModule != '') {
+            $moduleLength = strlen($this->currentModule);
+            $moduleLength++; // for '_'
+            if (substr($className, $moduleLength, 8) == 'Service_') {
+                return $this->loadService($className);
+            }
+        }
+
         /**
          * @desc Load controllers, e.g. 'FooController', or 'Module_FooController'.
          *       Unfortunately controllers break the one naming convention in the
@@ -380,6 +406,11 @@ class Lagged_Loader
         return $this->loadFormOrModel($className, 'form');
     }
 
+    protected function loadService($className)
+    {
+        return $this->loadFormOrModel($className, 'service');
+    }
+
     /**
      * Load a library, either include it, or return the path.
      *
@@ -431,6 +462,10 @@ class Lagged_Loader
         case 'form':
             $path .= $this->getPath($this->formsDir);
             $size += 5;
+            break;
+        case 'service':
+            $path .= $this->getPath($this->servicesDir);
+            $size += 8;
             break;
         case 'model':
             $path .= $this->getPath($this->modelsDir);
@@ -494,6 +529,7 @@ class Lagged_Loader
         $this->formsDir      = $applicationDir . '/modules/__MODULE__/forms';
         $this->modelsDir     = $applicationDir . '/modules/__MODULE__/models';
         $this->libraryDir    = self::$rootDir . '/library';
+        $this->servicesDir   = $applicationDir . '/modules/__MODULE__/services';
     }
 
     /**
