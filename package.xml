@@ -21,11 +21,11 @@ http://github.com/lagged/Lagged_loader
   <email>michael@sch0ll.de</email>
   <active>yes</active>
  </developer>
- <date>2011-09-28</date>
- <time>20:15:54</time>
+ <date>2011-10-07</date>
+ <time>01:35:34</time>
  <version>
-  <release>0.4.1</release>
-  <api>0.4.1</api>
+  <release>0.5.0</release>
+  <api>0.5.0</api>
  </version>
  <stability>
   <release>alpha</release>
@@ -33,8 +33,8 @@ http://github.com/lagged/Lagged_loader
  </stability>
  <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
-* bugfix in Lagged_LibraryLoader: when supplied via __construct(), appDir was not set 
- * bugfix in Lagged_LibraryLoader: app dir was assuming it contained &apos;app&apos;
+* support Service_Foo and Module_Service_Foo 
+ * silence warnings
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -56,6 +56,10 @@ http://github.com/lagged/Lagged_loader
    </dir> <!-- /src -->
    <dir name="tests">
     <dir name="Lagged">
+     <dir name="LibraryLoader">
+      <file baseinstalldir="/" name="LibraryLoader.phpt" role="test" />
+      <file baseinstalldir="/" name="LibraryLoaderTestSuite.php" role="test" />
+     </dir> <!-- /tests/Lagged/LibraryLoader -->
      <dir name="Loader">
       <file baseinstalldir="/" name="loadClass-controller-module.phpt" role="test" />
       <file baseinstalldir="/" name="loadClass-controller.phpt" role="test" />
@@ -67,6 +71,8 @@ http://github.com/lagged/Lagged_loader
       <file baseinstalldir="/" name="loadClass-library.phpt" role="test" />
       <file baseinstalldir="/" name="loadClass-model-module.phpt" role="test" />
       <file baseinstalldir="/" name="loadClass-model.phpt" role="test" />
+      <file baseinstalldir="/" name="loadClass-service-module.phpt" role="test" />
+      <file baseinstalldir="/" name="loadClass-service.phpt" role="test" />
       <file baseinstalldir="/" name="TestSuite.php" role="test" />
      </dir> <!-- /tests/Lagged/Loader -->
     </dir> <!-- /tests/Lagged -->
@@ -163,6 +169,22 @@ Initial release. (just fixing PEAR version to match tag on github)
    <notes>
 * bugfix in Lagged_LibraryLoader: when supplied via __construct(), appDir was not set 
  * bugfix in Lagged_LibraryLoader: app dir was assuming it contained &apos;app&apos;
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.5.0</release>
+    <api>0.5.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2011-10-07</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* support Service_Foo and Module_Service_Foo 
+ * silence warnings
    </notes>
   </release>
  </changelog>

@@ -6,13 +6,13 @@ ini_set('date.timezone', 'Europe/Berlin');
 require_once 'PEAR/PackageFileManager2.php';
 PEAR::setErrorHandling(PEAR_ERROR_DIE);
 
-$api_version     = '0.4.1';
+$api_version     = '0.5.0';
 $api_state       = 'alpha';
 
 $release_version = $api_version;
 $release_state   = $api_state;
-$release_notes   = " * bugfix in Lagged_LibraryLoader: when supplied via __construct(), appDir was not set \n"
-                 . " * bugfix in Lagged_LibraryLoader: app dir was assuming it contained 'app' \n";
+$release_notes   = " * support Service_Foo and Module_Service_Foo \n"
+                 . " * silence warnings";
 
 $description = "A better autoloader for the Zend Framework: \n"
     . "http://github.com/lagged/Lagged_loader \n";
