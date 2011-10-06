@@ -388,7 +388,7 @@ class Lagged_Loader
         $path .= '.php';
 
         if ($this->include === true) {
-            return include $path;
+            return @include $path;
         }
         return $path;
     }
@@ -483,7 +483,7 @@ class Lagged_Loader
         $file = substr($file, $size);
         $path .= '/' . $file;
         if ($this->include === true) {
-            return include $path;
+            return @include $path;
         }
         return $path;
     }
