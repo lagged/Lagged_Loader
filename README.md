@@ -66,6 +66,6 @@ Load your PEAR libs, this part is work in progress:
 
     <?php
     require_once 'Lagged/PEARLoader.php';
-    spl_autoload_register('Lagged_PEARLoader', 'loadClass'));
+    spl_autoload_register(array('Lagged_PEARLoader', 'load'));
     
 See `tests/` for more examples.
